@@ -39,11 +39,20 @@ export function DrawPanel({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const preview = new Image();
+    preview.src = "/media/draw-preview.png";
+
     const redraw = () => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      paint(ctx, loadStrokes(), canvas.width, canvas.height, liveRef.current);
+      const strokes = loadStrokes();
+      paint(ctx, strokes, canvas.width, canvas.height, liveRef.current);
+      if (strokes.length === 0 && !liveRef.current && preview.complete && preview.naturalWidth) {
+        const size = Math.min(canvas.width, canvas.height) * 0.42;
+        ctx.drawImage(preview, (canvas.width - size) / 2, (canvas.height - size) / 2, size, size);
+      }
     };
+    preview.onload = redraw;
 
     const resize = () => {
       const width = canvas.offsetWidth;

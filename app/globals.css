@@ -243,6 +243,7 @@ body {
   line-height: 82px;
   font-weight: 400;
   letter-spacing: -0.6px;
+  overflow-wrap: anywhere;
 }
 
 .patient-meta {
@@ -293,8 +294,10 @@ body {
   flex: 1;
   min-height: 0;
   display: grid;
+  grid-template-rows: minmax(0, 1fr);
   gap: 32px;
   zoom: var(--type-scale);
+  overflow: hidden;
 }
 
 .stage[data-orientation="landscape"] .board-columns {
@@ -305,9 +308,33 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.stage[data-orientation="portrait"] .board {
+  padding: 28px 40px 20px;
+}
+
+.stage[data-orientation="portrait"] .board-header {
+  min-height: 0;
+  gap: 16px 24px;
+  align-items: center;
+}
+
+.stage[data-orientation="portrait"] .logo-lockup {
+  width: 132px;
+  height: 132px;
+}
+
+.stage[data-orientation="portrait"] .logo-lockup img {
+  width: 84px;
+  height: 88px;
+}
+
 .stage[data-orientation="portrait"] .patient-name {
-  font-size: 64px;
-  line-height: 68px;
+  font-size: 46px;
+  line-height: 50px;
+}
+
+.stage[data-orientation="portrait"] .header-discharge {
+  margin-top: 16px !important;
 }
 
 .stage[data-orientation="portrait"] .header-clock,
@@ -777,9 +804,10 @@ body {
   padding-left: 36px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
   font-size: 32px;
   line-height: 1.35;
+  list-style: disc;
 }
 
 .draw-footer img {
@@ -876,8 +904,9 @@ body {
 .preview-switch {
   position: fixed;
   z-index: 50;
-  left: 16px;
-  bottom: 16px;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 8px;

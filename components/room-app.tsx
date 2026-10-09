@@ -22,6 +22,7 @@ export function RoomApp() {
   const [pref, setPref] = useState<Pref>("auto");
   const [natural, setNatural] = useState<Orientation>("landscape");
   const [scale, setScale] = useState(1);
+  const [letterbox, setLetterbox] = useState({ x: 0, y: 0 });
   const [typeIndex, setTypeIndex] = useState(1);
   const [dimIndex, setDimIndex] = useState(0);
   const [powerOff, setPowerOff] = useState(false);
@@ -41,6 +42,10 @@ export function RoomApp() {
       const size = STAGE[active];
       const nextScale = Math.min(window.innerWidth / size.width, window.innerHeight / size.height);
       setScale(nextScale);
+      setLetterbox({
+        x: window.innerWidth - size.width * nextScale,
+        y: window.innerHeight - size.height * nextScale,
+      });
     };
     measure();
     window.addEventListener("resize", measure);
@@ -122,7 +127,18 @@ export function RoomApp() {
           </div>
         </div>
       </main>
-      <div className="preview-switch" role="group" aria-label="Display orientation">
+      <div
+        className="preview-switch"
+        role="group"
+        aria-label="Display orientation"
+        style={
+          letterbox.x > 240
+            ? { left: 16, top: 16, transform: "none" }
+            : letterbox.y > 72
+              ? { left: "50%", bottom: 12, top: "auto", transform: "translateX(-50%)" }
+              : { right: 16, top: 16, left: "auto", transform: "none" }
+        }
+      >
         <span>PIN {`2580`}</span>
         {(
           [
