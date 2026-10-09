@@ -2,7 +2,10 @@
 
 @font-face {
   font-family: "Proxima Nova";
-  src: local("Proxima Nova"), local("ProximaNova-Regular");
+  src:
+    local("Proxima Nova"),
+    local("ProximaNova-Regular"),
+    url("/fonts/proxima-nova-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -10,8 +13,35 @@
 
 @font-face {
   font-family: "Proxima Nova";
-  src: local("Proxima Nova Semibold"), local("ProximaNova-Semibold");
+  src:
+    local("Proxima Nova"),
+    local("ProximaNova-Regular"),
+    url("/fonts/proxima-nova-400.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src:
+    local("Proxima Nova Semibold"),
+    local("ProximaNova-Semibold"),
+    local("Proxima Nova Bold"),
+    local("ProximaNova-Bold"),
+    url("/fonts/proxima-nova-700.woff2") format("woff2");
   font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src:
+    local("Proxima Nova Bold"),
+    local("ProximaNova-Bold"),
+    url("/fonts/proxima-nova-700.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -443,6 +473,28 @@ body {
   line-height: 64px;
   letter-spacing: -0.6px;
   font-weight: 400;
+}
+
+.person-role,
+.item-when,
+.pain-when,
+.pain-score,
+.card-label,
+.chip,
+.language-chip,
+.patient-service,
+.header-clock,
+.header-discharge,
+.control-label,
+.updated,
+.pin-copy,
+.pin-key,
+.pin-value,
+.draw-footer,
+.email-card,
+.email-note,
+.preview-switch {
+  font-family: "Proxima Nova", var(--font-proxima-fallback), sans-serif;
 }
 
 .person-role,

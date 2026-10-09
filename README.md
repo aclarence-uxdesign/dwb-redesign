@@ -4,7 +4,7 @@ Standalone room display for an LG TV-sized patient whiteboard. The screen matche
 
 Landscape uses three columns (people, the day, clinical). Portrait uses two columns (people and safety on the left, the day plan and draw tools on the right). Cards, chips, icon buttons, and avatars follow the Web Mobile design system: outlined input chips, circular icon buttons, and the Bradford LL / Proxima Nova type pairing.
 
-Bradford LL and Proxima Nova are commercial faces. If they are installed on the device they are used automatically. Otherwise the board falls back to Source Serif 4 and Inter.
+Staff names, appointment titles, and goals use Bradford LL. Supporting text — roles, times, labels, chips, and controls — uses Proxima Nova. Bradford LL is used when that face is installed; otherwise those lines fall back to Source Serif 4.
 
 ## Run
 
