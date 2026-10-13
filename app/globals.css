@@ -49,8 +49,10 @@ button {
 
 .viewport {
   min-height: 100dvh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: auto;
   background:
     radial-gradient(circle at 50% 40%, #24143f 0%, #0b0714 46%, #05030c 100%);
 }
@@ -63,22 +65,26 @@ body {
 
 .stage-slot {
   width: calc(var(--stage-w) * var(--scale));
-  height: calc(var(--stage-h) * var(--scale));
+  height: calc(var(--content-h) * var(--scale));
   position: relative;
-  overflow: hidden;
+  flex: none;
 }
 
 .stage {
   width: var(--stage-w);
-  height: var(--stage-h);
+  min-height: var(--stage-h);
+  height: auto;
   transform: scale(var(--scale));
   transform-origin: top left;
   position: absolute;
   left: 0;
   top: 0;
-  overflow: hidden;
   color: var(--ink);
   background: #0c071a;
+}
+
+.stage[data-screen="pin"] {
+  height: var(--stage-h);
 }
 
 .stage[data-screen="pin"] {
@@ -219,7 +225,8 @@ body {
 }
 
 .board {
-  height: 100%;
+  min-height: var(--stage-h);
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 32px 64px 28px;
@@ -304,13 +311,11 @@ body {
 }
 
 .board-columns {
-  flex: 1;
-  min-height: 0;
+  flex: none;
   display: grid;
-  grid-template-rows: minmax(0, 1fr);
+  grid-template-rows: auto;
   gap: 32px;
   zoom: var(--type-scale);
-  overflow: hidden;
 }
 
 .stage[data-orientation="landscape"] .board-columns {
@@ -356,14 +361,9 @@ body {
 }
 
 .column {
-  min-height: 0;
-  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding-right: 8px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
 
 .card {
@@ -595,6 +595,7 @@ body {
   padding: 0;
 }
 
+.draw-blank,
 .draw-launch img,
 .custom-canvas img,
 .thumb-canvas {
@@ -732,8 +733,6 @@ body {
 
 .stage[data-orientation="landscape"] .draw-panel {
   left: 50%;
-  top: 36px;
-  bottom: 36px;
   width: 2040px;
   transform: translateX(-50%);
 }
@@ -741,8 +740,6 @@ body {
 .stage[data-orientation="portrait"] .draw-panel {
   left: 32px;
   right: 32px;
-  top: 32px;
-  bottom: 32px;
 }
 
 .draw-toolbar {

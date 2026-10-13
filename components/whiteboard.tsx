@@ -159,7 +159,7 @@ function DrawThumb({ onOpen }: { onOpen: () => void }) {
   return (
     <Card label="Draw">
       <button type="button" className="draw-launch" onClick={onOpen} aria-label="Open draw box">
-        {hasDrawing ? <ThumbCanvas /> : <img src={asset("/media/draw-preview.png")} alt="Saved drawing" />}
+        {hasDrawing ? <ThumbCanvas /> : <span className="draw-blank" aria-hidden="true" />}
       </button>
     </Card>
   );

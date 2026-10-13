@@ -16,6 +16,7 @@ export function DrawPanel({
   onShare: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
   const liveRef = useRef<Stroke | null>(null);
   const toolRef = useRef<{ color: string; size: number; erase: boolean }>({
     color: inkColors[0],
@@ -37,23 +38,35 @@ export function DrawPanel({
   }, [color, size, tool]);
 
   useEffect(() => {
+    const panel = panelRef.current;
+    const viewport = panel?.closest(".viewport");
+    if (!panel || !viewport) return;
+
+    const place = () => {
+      const scale = Number.parseFloat(getComputedStyle(panel).getPropertyValue("--scale")) || 1;
+      const margin = 36;
+      panel.style.top = `${viewport.scrollTop / scale + margin}px`;
+      panel.style.height = `${Math.max(480, viewport.clientHeight / scale - margin * 2)}px`;
+    };
+
+    place();
+    viewport.addEventListener("scroll", place, { passive: true });
+    window.addEventListener("resize", place);
+    return () => {
+      viewport.removeEventListener("scroll", place);
+      window.removeEventListener("resize", place);
+    };
+  }, []);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    const preview = new Image();
-    preview.src = asset("/media/draw-preview.png");
 
     const redraw = () => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      const strokes = loadStrokes();
-      paint(ctx, strokes, canvas.width, canvas.height, liveRef.current);
-      if (strokes.length === 0 && !liveRef.current && preview.complete && preview.naturalWidth) {
-        const size = Math.min(canvas.width, canvas.height) * 0.42;
-        ctx.drawImage(preview, (canvas.width - size) / 2, (canvas.height - size) / 2, size, size);
-      }
+      paint(ctx, loadStrokes(), canvas.width, canvas.height, liveRef.current);
     };
-    preview.onload = redraw;
 
     const resize = () => {
       const width = canvas.offsetWidth;
@@ -101,7 +114,7 @@ export function DrawPanel({
   }
 
   return (
-    <section className="draw-panel" role="dialog" aria-label="Draw box">
+    <section ref={panelRef} className="draw-panel" role="dialog" aria-label="Draw box">
       <div className="draw-toolbar">
         <button
           type="button"
