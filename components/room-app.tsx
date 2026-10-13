@@ -1,5 +1,6 @@
 "use client";
 
+import { asset } from "@/lib/assets";
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { DrawPanel } from "@/components/draw-panel";
 import { EmailDialog } from "@/components/email-dialog";
@@ -117,7 +118,7 @@ export function RoomApp() {
               <div className="power-off">
                 <div>
                   <button type="button" className="power-btn" onClick={() => setPowerOff(false)}>
-                    <img src="/media/icon-power.svg" alt="" />
+                    <img src={asset("/media/icon-power.svg")} alt="" />
                     <span>On/Off</span>
                   </button>
                   <p>Display is off. Press On/Off to wake the room board.</p>

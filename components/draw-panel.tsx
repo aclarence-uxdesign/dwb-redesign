@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import { drawGuidance, inkColors, lineWeights } from "@/lib/board-data";
 import { clearStrokes, loadStrokes, paint, saveStrokes, subscribe, type Stroke } from "@/lib/drawing";
 import { QrCode } from "@/components/qr-code";
+import { asset } from "@/lib/assets";
 
 type Tool = "pen" | "eraser";
 
@@ -28,7 +29,7 @@ export function DrawPanel({
   const [companionUrl, setCompanionUrl] = useState("/companion");
 
   useEffect(() => {
-    setCompanionUrl(`${window.location.origin}/companion`);
+    setCompanionUrl(`${window.location.origin}${asset("/companion")}`);
   }, []);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export function DrawPanel({
     if (!canvas) return;
 
     const preview = new Image();
-    preview.src = "/media/draw-preview.png";
+    preview.src = asset("/media/draw-preview.png");
 
     const redraw = () => {
       const ctx = canvas.getContext("2d");
@@ -111,7 +112,7 @@ export function DrawPanel({
             setMenu(null);
           }}
         >
-          <img src="/media/icon-delete.svg" alt="" />
+          <img src={asset("/media/icon-delete.svg")} alt="" />
         </button>
         <button
           type="button"
@@ -122,7 +123,7 @@ export function DrawPanel({
             onShare();
           }}
         >
-          <img src="/media/icon-share.svg" alt="" />
+          <img src={asset("/media/icon-share.svg")} alt="" />
         </button>
         <button
           type="button"
@@ -134,7 +135,7 @@ export function DrawPanel({
             setMenu((current) => (current === "color" ? null : "color"));
           }}
         >
-          <img src="/media/icon-palette.svg" alt="" />
+          <img src={asset("/media/icon-palette.svg")} alt="" />
         </button>
         <button
           type="button"
@@ -146,7 +147,7 @@ export function DrawPanel({
             setMenu((current) => (current === "weight" ? null : "weight"));
           }}
         >
-          <img src="/media/icon-weight.svg" alt="" />
+          <img src={asset("/media/icon-weight.svg")} alt="" />
         </button>
         <button
           type="button"
@@ -158,10 +159,10 @@ export function DrawPanel({
             setMenu(null);
           }}
         >
-          <img src="/media/icon-eraser.svg" alt="" />
+          <img src={asset("/media/icon-eraser.svg")} alt="" />
         </button>
         <button type="button" className="tool-btn" aria-label="Minimize draw box" onClick={onClose}>
-          <img src="/media/icon-x.svg" alt="" />
+          <img src={asset("/media/icon-x.svg")} alt="" />
         </button>
         {menu === "color" ? (
           <div className="tool-pop" style={{ left: "38%" }}>

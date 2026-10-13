@@ -1,5 +1,6 @@
 "use client";
 
+import { asset } from "@/lib/assets";
 import { useEffect, useState, type ReactNode } from "react";
 import {
   activities,
@@ -66,7 +67,7 @@ function ScheduleCard() {
           {block.items.map((item) => (
             <div className="schedule-item" key={item.title}>
               <div className="schedule-icon">
-                <img src="/media/icon-calendar.svg" alt="" />
+                <img src={asset("/media/icon-calendar.svg")} alt="" />
               </div>
               <div className={item.muted ? "muted" : undefined}>
                 <p className="item-title">{item.title}</p>
@@ -85,7 +86,7 @@ function GoalsCard() {
     <Card label="Goals for Today">
       {goals.map((goal) => (
         <div className="goal-row" key={goal}>
-          <img src="/media/bullet.svg" alt="" />
+          <img src={asset("/media/bullet.svg")} alt="" />
           <p className="goal-line">{goal}</p>
         </div>
       ))}
@@ -98,7 +99,7 @@ function BulletCard({ label, items }: { label: string; items: string[] }) {
     <Card label={label}>
       {items.map((item) => (
         <div className="bullet-row" key={item}>
-          <img src="/media/bullet.svg" alt="" />
+          <img src={asset("/media/bullet.svg")} alt="" />
           <p className="goal-line">{item}</p>
         </div>
       ))}
@@ -127,7 +128,7 @@ function PainCard() {
         <p className="pain-label">Pain Threshold</p>
         <div className="pain-rule" />
         <div className="pain-score">
-          <img src="/media/pain-orange.svg" alt="" />
+          <img src={asset("/media/pain-orange.svg")} alt="" />
           <span>{pain.threshold}</span>
         </div>
       </div>
@@ -138,7 +139,7 @@ function PainCard() {
         </div>
         <div className="pain-rule" />
         <div className="pain-score">
-          <img src="/media/pain-red.svg" alt="" />
+          <img src={asset("/media/pain-red.svg")} alt="" />
           <span>{pain.lastScore}</span>
         </div>
       </div>
@@ -158,7 +159,7 @@ function DrawThumb({ onOpen }: { onOpen: () => void }) {
   return (
     <Card label="Draw">
       <button type="button" className="draw-launch" onClick={onOpen} aria-label="Open draw box">
-        {hasDrawing ? <ThumbCanvas /> : <img src="/media/draw-preview.png" alt="Saved drawing" />}
+        {hasDrawing ? <ThumbCanvas /> : <img src={asset("/media/draw-preview.png")} alt="Saved drawing" />}
       </button>
     </Card>
   );
@@ -186,7 +187,7 @@ function CustomCard() {
       <h2 className="card-label">Custom Content</h2>
       <p className="custom-title">Content Title</p>
       <div className="custom-canvas">
-        <img src="/media/custom-photo.png" alt="Custom room content" />
+        <img src={asset("/media/custom-photo.png")} alt="Custom room content" />
       </div>
     </section>
   );
@@ -262,7 +263,7 @@ export function Whiteboard({
     <div className="board" style={{ ["--type-scale" as string]: typeScale }}>
       <header className="board-header">
         <div className="logo-lockup">
-          <img src="/media/logo.png" alt="Community hospital" />
+          <img src={asset("/media/logo.png")} alt="Community hospital" />
         </div>
         <div>
           <h1 className="patient-name">{patient.name}</h1>
@@ -315,7 +316,7 @@ export function Whiteboard({
               disabled={drawOpen}
               onClick={() => onDim(1)}
             >
-              <img src="/media/icon-minus.svg" alt="" />
+              <img src={asset("/media/icon-minus.svg")} alt="" />
             </button>
             <span className="control-label">Dim</span>
             <button
@@ -326,7 +327,7 @@ export function Whiteboard({
               disabled={drawOpen}
               onClick={() => onDim(-1)}
             >
-              <img src="/media/icon-plus.svg" alt="" />
+              <img src={asset("/media/icon-plus.svg")} alt="" />
             </button>
           </div>
           <button
@@ -336,7 +337,7 @@ export function Whiteboard({
             onClick={onPower}
             aria-label="Turn the display off"
           >
-            <img src="/media/icon-power.svg" alt="" />
+            <img src={asset("/media/icon-power.svg")} alt="" />
             <span>On/Off</span>
           </button>
           <div className="control-group">
@@ -347,7 +348,7 @@ export function Whiteboard({
               aria-label="Decrease text size"
               onClick={() => onType(-1)}
             >
-              <img src="/media/icon-minus.svg" alt="" />
+              <img src={asset("/media/icon-minus.svg")} alt="" />
             </button>
             <span className="control-label">Font</span>
             <button
@@ -357,11 +358,11 @@ export function Whiteboard({
               aria-label="Increase text size"
               onClick={() => onType(1)}
             >
-              <img src="/media/icon-plus-dark.svg" alt="" />
+              <img src={asset("/media/icon-plus-dark.svg")} alt="" />
             </button>
           </div>
           <button type="button" className="round-btn" data-invert="true" aria-label="Lock the display" onClick={onLock}>
-            <img src="/media/icon-fingerprint.svg" alt="" />
+            <img src={asset("/media/icon-fingerprint.svg")} alt="" />
           </button>
         </div>
         <p className="updated">Last updated {updated}</p>

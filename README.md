@@ -15,6 +15,22 @@ npm run dev
 
 Open [http://127.0.0.1:43117](http://127.0.0.1:43117).
 
+## Team preview
+
+The shareable preview is the static site on GitHub Pages:
+
+[DWB Redesign](https://aclarence-uxdesign.github.io/dwb-redesign/)
+
+Registration PIN: **2580**. Landscape, Portrait, and Auto sit in the letterbox around the TV frame.
+
+To rebuild that preview after a change:
+
+```bash
+npm run pages
+```
+
+Publish the `out/` folder to the `gh-pages` branch. Paths are prefixed with `/dwb-redesign` so images, fonts, and scripts resolve on GitHub Pages.
+
 The registration PIN is **2580**. After four digits the board opens. The fingerprint control locks the display and returns to registration.
 
 ## On the board

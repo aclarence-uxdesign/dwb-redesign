@@ -1,5 +1,6 @@
 "use client";
 
+import { asset } from "@/lib/assets";
 import { useEffect, useRef, useState } from "react";
 import { REGISTRATION_PIN } from "@/lib/board-data";
 
@@ -119,7 +120,7 @@ export function PinScreen({ onSuccess }: { onSuccess: () => void }) {
                       setError(false);
                     }}
                   >
-                    <img src="/media/icon-close.svg" alt="" width={38} height={38} />
+                    <img src={asset("/media/icon-close.svg")} alt="" width={38} height={38} />
                   </button>
                 );
               }
@@ -135,7 +136,7 @@ export function PinScreen({ onSuccess }: { onSuccess: () => void }) {
                       setError(false);
                     }}
                   >
-                    <img src="/media/icon-backspace.svg" alt="" width={38} height={38} />
+                    <img src={asset("/media/icon-backspace.svg")} alt="" width={38} height={38} />
                   </button>
                 );
               }

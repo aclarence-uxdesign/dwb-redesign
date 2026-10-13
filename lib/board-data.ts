@@ -1,3 +1,5 @@
+import { asset } from "./assets";
+
 export const REGISTRATION_PIN = "2580";
 
 export const patient = {
@@ -11,37 +13,37 @@ export const staff = [
   {
     name: "Dr. Wolfgang Mozart-Johannesen, MD",
     role: "Chief of Staff • Cardiothoracic Surgery",
-    photo: "/media/staff-1.png",
+    photo: asset("/media/staff-1.png"),
   },
   {
     name: "Anastasia-Marie Hernandez-Rodriguez",
     role: "Registered Nurse, Charge",
-    photo: "/media/staff-2.png",
+    photo: asset("/media/staff-2.png"),
   },
   {
     name: "Christopher J. Wellington-Smythe III",
     role: "Registered Nurse",
-    photo: "/media/staff-3.png",
+    photo: asset("/media/staff-3.png"),
   },
   {
     name: "Priyanka L. Venkataramanan, DPT",
     role: "Physical Therapist, Acute Care",
-    photo: "/media/staff-4.png",
+    photo: asset("/media/staff-4.png"),
   },
   {
     name: "Jean-Baptiste Beaumont-Dupré, RD",
     role: "Clinical Dietitian",
-    photo: "/media/staff-5.png",
+    photo: asset("/media/staff-5.png"),
   },
   {
     name: "Jean-Baptiste Beaumont-Dupré, RD",
     role: "Clinical Dietitian",
-    photo: "/media/staff-6.png",
+    photo: asset("/media/staff-6.png"),
   },
   {
     name: "Jean-Baptiste Beaumont-Dupré, RD",
     role: "Clinical Dietitian",
-    photo: "/media/staff-7.png",
+    photo: asset("/media/staff-7.png"),
   },
 ];
 

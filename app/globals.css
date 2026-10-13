@@ -1,52 +1,6 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Proxima Nova";
-  src:
-    local("Proxima Nova"),
-    local("ProximaNova-Regular"),
-    url("/fonts/proxima-nova-400.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Proxima Nova";
-  src:
-    local("Proxima Nova"),
-    local("ProximaNova-Regular"),
-    url("/fonts/proxima-nova-400.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Proxima Nova";
-  src:
-    local("Proxima Nova Semibold"),
-    local("ProximaNova-Semibold"),
-    local("Proxima Nova Bold"),
-    local("ProximaNova-Bold"),
-    url("/fonts/proxima-nova-700.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Proxima Nova";
-  src:
-    local("Proxima Nova Bold"),
-    local("ProximaNova-Bold"),
-    url("/fonts/proxima-nova-700.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Bradford LL";
   src: local("Bradford LL"), local("BradfordLL-Book"), local("Bradford LL Book");
   font-weight: 400;

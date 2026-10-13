@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -H 0.0.0.0 -p 43117",
-    "build": "next build --turbopack",
+    "build": "next build",
+    "pages": "NEXT_PUBLIC_BASE_PATH=/dwb-redesign next build",
     "start": "next start",
     "lint": "eslint"
   },
