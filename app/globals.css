@@ -230,7 +230,7 @@ body {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: 32px 64px 0;
+  padding: 32px 64px 28px;
   gap: 24px;
   position: relative;
 }
@@ -321,7 +321,7 @@ body {
   gap: 32px;
   zoom: var(--type-scale);
   overflow: auto;
-  padding-bottom: 196px;
+  padding-bottom: 8px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
@@ -335,7 +335,7 @@ body {
 }
 
 .stage[data-orientation="portrait"] .board {
-  padding: 28px 40px 0;
+  padding: 28px 40px 20px;
 }
 
 .stage[data-orientation="portrait"] .board-header {
@@ -622,29 +622,17 @@ body {
 }
 
 .controls {
-  position: absolute;
+  position: relative;
   z-index: 8;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  flex: none;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 168px;
-  padding: 36px 64px 28px;
-  pointer-events: none;
-  background: linear-gradient(to top, #07040f 42%, rgba(7, 4, 15, 0));
-}
-
-.controls .control-cluster,
-.controls .updated {
-  pointer-events: auto;
-}
-
-.stage[data-orientation="portrait"] .controls {
-  padding-left: 40px;
-  padding-right: 40px;
+  min-height: 120px;
+  margin-top: 8px;
+  padding-top: 16px;
+  background: #07040f;
 }
 
 .control-cluster {
