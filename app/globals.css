@@ -454,7 +454,8 @@ body {
 .pin-value,
 .draw-footer,
 .email-card,
-.email-note {
+.email-note,
+.preview-switch {
   font-family: "Proxima Nova", var(--font-proxima-fallback), sans-serif;
 }
 
@@ -936,6 +937,37 @@ body {
 .btn-send:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.preview-switch {
+  position: fixed;
+  z-index: 80;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #140c24;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: white;
+  pointer-events: auto;
+}
+
+.preview-switch button {
+  border: 0;
+  background: transparent;
+  color: white;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.preview-switch button[data-active="true"] {
+  background: white;
+  color: #291758;
 }
 
 .email-note {

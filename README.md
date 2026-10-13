@@ -21,7 +21,7 @@ The shareable preview is the static site on GitHub Pages:
 
 [DWB Redesign](https://aclarence-uxdesign.github.io/dwb-redesign/)
 
-Registration PIN: **2580**. Rotate the phone or resize the window and the board switches between landscape and portrait on its own.
+Registration PIN: **2580**. Auto follows the TV. Landscape and Portrait hold the board in that layout.
 
 To rebuild that preview after a change:
 
@@ -40,4 +40,4 @@ The registration PIN is **2580**. After four digits the board opens. The fingerp
 - Draw opens the drawing box. The share icon sends the note by email. The X minimizes the box.
 - The QR code opens `/companion` so a phone on the same browser origin can draw onto the board.
 
-Rotate the TV, the phone, or the browser window. A wider screen uses the three-column landscape board. A vertical screen uses the two-column portrait board.
+Auto, Landscape, and Portrait sit at the top right and do not move the board. Auto follows the TV: wide is three columns, vertical is two. Landscape or Portrait keeps that layout until you choose Auto again.

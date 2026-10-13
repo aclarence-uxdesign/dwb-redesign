@@ -13,11 +13,14 @@ const STAGE = {
   portrait: { width: 2116, height: 3840 },
 } as const;
 
+type Mode = "auto" | Orientation;
+
 const TYPE_STEPS = [0.9, 1, 1.08, 1.16];
 const DIM_STEPS = [0, 0.18, 0.34, 0.5, 0.66];
 
 export function RoomApp() {
   const [registered, setRegistered] = useState(false);
+  const [mode, setMode] = useState<Mode>("auto");
   const [orientation, setOrientation] = useState<Orientation>("landscape");
   const [scale, setScale] = useState(1);
   const [frame, setFrame] = useState({ width: 0, height: 0, top: 0, left: 0 });
@@ -37,12 +40,13 @@ export function RoomApp() {
       const viewport = window.visualViewport;
       const viewWidth = window.innerWidth;
       const viewHeight = window.innerHeight;
-      const next = orientationForDisplay({
+      const natural = orientationForDisplay({
         viewWidth,
         viewHeight,
         screenWidth: window.screen?.width ?? viewWidth,
         screenHeight: window.screen?.height ?? viewHeight,
       });
+      const next = mode === "auto" ? natural : mode;
       const size = STAGE[next];
       setOrientation(next);
       setFrame({
@@ -80,7 +84,7 @@ export function RoomApp() {
       window.visualViewport?.removeEventListener("resize", onRotate);
       window.visualViewport?.removeEventListener("scroll", measure);
     };
-  }, []);
+  }, [mode]);
 
   const style = useMemo(
     () =>
@@ -166,6 +170,19 @@ export function RoomApp() {
           </div>
         </div>
       </main>
+      <div className="preview-switch" role="group" aria-label="Display orientation">
+        {(
+          [
+            ["auto", "Auto"],
+            ["landscape", "Landscape"],
+            ["portrait", "Portrait"],
+          ] as const
+        ).map(([value, label]) => (
+          <button key={value} type="button" data-active={mode === value} onClick={() => setMode(value)}>
+            {label}
+          </button>
+        ))}
+      </div>
     </>
   );
 }
