@@ -21,7 +21,7 @@ The shareable preview is the static site on GitHub Pages:
 
 [DWB Redesign](https://aclarence-uxdesign.github.io/dwb-redesign/)
 
-Registration PIN: **2580**. Landscape, Portrait, and Auto sit in the letterbox around the TV frame.
+Registration PIN: **2580**. Rotate the phone or resize the window and the board switches between landscape and portrait on its own.
 
 To rebuild that preview after a change:
 
@@ -31,7 +31,7 @@ npm run pages
 
 Publish the `out/` folder to the `gh-pages` branch. Paths are prefixed with `/dwb-redesign` so images, fonts, and scripts resolve on GitHub Pages.
 
-The registration PIN is **2580**. After four digits the board opens. The fingerprint control locks the display and returns to registration.
+The registration PIN is **2580**. After four digits the board opens. The fingerprint control locks the display and returns to registration. The board follows the screen: landscape uses three columns, and turning the device to portrait uses two.
 
 ## On the board
 
@@ -40,4 +40,4 @@ The registration PIN is **2580**. After four digits the board opens. The fingerp
 - Draw opens the drawing box. The share icon sends the note by email. The X minimizes the box.
 - The QR code opens `/companion` so a phone on the same browser origin can draw onto the board.
 
-Use the Landscape, Portrait, and Auto controls at the lower left to preview both TV orientations. Auto follows the window.
+Rotate the window to preview both TV orientations. A wider screen uses the three-column landscape board. A taller screen uses the two-column portrait board.

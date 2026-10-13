@@ -446,8 +446,7 @@ body {
 .pin-value,
 .draw-footer,
 .email-card,
-.email-note,
-.preview-switch {
+.email-note {
   font-family: "Proxima Nova", var(--font-proxima-fallback), sans-serif;
 }
 
@@ -934,44 +933,6 @@ body {
   text-align: center;
   color: #8a3048;
   font-size: 28px;
-}
-
-.preview-switch {
-  position: fixed;
-  z-index: 50;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 999px;
-  background: rgba(20, 12, 36, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: white;
-  backdrop-filter: blur(10px);
-}
-
-.preview-switch span {
-  padding: 0 8px;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  opacity: 0.75;
-}
-
-.preview-switch button {
-  border: 0;
-  background: transparent;
-  color: white;
-  border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 13px;
-}
-
-.preview-switch button[data-active="true"] {
-  background: white;
-  color: #291758;
 }
 
 .companion {

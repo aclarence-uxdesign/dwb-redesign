@@ -8,7 +8,6 @@ import { PinScreen } from "@/components/pin-screen";
 import { Whiteboard } from "@/components/whiteboard";
 
 type Orientation = "landscape" | "portrait";
-type Pref = "auto" | Orientation;
 
 const STAGE = {
   landscape: { width: 3840, height: 2116 },
@@ -20,10 +19,9 @@ const DIM_STEPS = [0, 0.18, 0.34, 0.5, 0.66];
 
 export function RoomApp() {
   const [registered, setRegistered] = useState(false);
-  const [pref, setPref] = useState<Pref>("auto");
-  const [natural, setNatural] = useState<Orientation>("landscape");
+  const [orientation, setOrientation] = useState<Orientation>("landscape");
   const [scale, setScale] = useState(1);
-  const [letterbox, setLetterbox] = useState({ x: 0, y: 0 });
+  const [frame, setFrame] = useState({ width: 0, height: 0, top: 0, left: 0 });
   const [typeIndex, setTypeIndex] = useState(1);
   const [dimIndex, setDimIndex] = useState(0);
   const [powerOff, setPowerOff] = useState(false);
@@ -31,27 +29,41 @@ export function RoomApp() {
   const [emailOpen, setEmailOpen] = useState(false);
   const [updated, setUpdated] = useState("12:00 AM");
 
-  const orientation: Orientation = pref === "auto" ? natural : pref;
   const stage = STAGE[orientation];
 
   useEffect(() => {
     const measure = () => {
-      const nextNatural: Orientation =
-        window.innerHeight > window.innerWidth ? "portrait" : "landscape";
-      setNatural(nextNatural);
-      const active = pref === "auto" ? nextNatural : pref;
-      const size = STAGE[active];
-      const nextScale = Math.min(window.innerWidth / size.width, window.innerHeight / size.height);
-      setScale(nextScale);
-      setLetterbox({
-        x: window.innerWidth - size.width * nextScale,
-        y: window.innerHeight - size.height * nextScale,
+      const next: Orientation = window.matchMedia("(orientation: portrait)").matches
+        ? "portrait"
+        : "landscape";
+      setOrientation(next);
+      const size = STAGE[next];
+      const viewport = window.visualViewport;
+      const width = viewport?.width ?? window.innerWidth;
+      const height = viewport?.height ?? window.innerHeight;
+      setFrame({
+        width,
+        height,
+        top: viewport?.offsetTop ?? 0,
+        left: viewport?.offsetLeft ?? 0,
       });
+      setScale(Math.min(width / size.width, height / size.height));
     };
     measure();
+    const portraitQuery = window.matchMedia("(orientation: portrait)");
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, [pref]);
+    window.addEventListener("orientationchange", measure);
+    portraitQuery.addEventListener("change", measure);
+    window.visualViewport?.addEventListener("resize", measure);
+    window.visualViewport?.addEventListener("scroll", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("orientationchange", measure);
+      portraitQuery.removeEventListener("change", measure);
+      window.visualViewport?.removeEventListener("resize", measure);
+      window.visualViewport?.removeEventListener("scroll", measure);
+    };
+  }, []);
 
   const style = useMemo(
     () =>
@@ -71,7 +83,16 @@ export function RoomApp() {
 
   return (
     <>
-      <main className="viewport">
+      <main
+        className="viewport"
+        style={{
+          position: "fixed",
+          width: frame.width ? `${frame.width}px` : "100%",
+          height: frame.height ? `${frame.height}px` : "100dvh",
+          top: frame.top,
+          left: frame.left,
+        }}
+      >
         <div className="stage-slot" style={style}>
           <div
             className="stage"
@@ -128,36 +149,6 @@ export function RoomApp() {
           </div>
         </div>
       </main>
-      <div
-        className="preview-switch"
-        role="group"
-        aria-label="Display orientation"
-        style={
-          letterbox.x > 240
-            ? { left: 16, top: 16, transform: "none" }
-            : letterbox.y > 72
-              ? { left: "50%", bottom: 12, top: "auto", transform: "translateX(-50%)" }
-              : { right: 16, top: 16, left: "auto", transform: "none" }
-        }
-      >
-        <span>PIN {`2580`}</span>
-        {(
-          [
-            ["auto", "Auto"],
-            ["landscape", "Landscape"],
-            ["portrait", "Portrait"],
-          ] as const
-        ).map(([value, label]) => (
-          <button
-            key={value}
-            type="button"
-            data-active={pref === value}
-            onClick={() => setPref(value)}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
     </>
   );
 }
