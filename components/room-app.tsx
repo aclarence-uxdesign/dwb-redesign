@@ -1,13 +1,12 @@
 "use client";
 
 import { asset } from "@/lib/assets";
+import { orientationForDisplay, type Orientation } from "@/lib/orientation";
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { DrawPanel } from "@/components/draw-panel";
 import { EmailDialog } from "@/components/email-dialog";
 import { PinScreen } from "@/components/pin-screen";
 import { Whiteboard } from "@/components/whiteboard";
-
-type Orientation = "landscape" | "portrait";
 
 const STAGE = {
   landscape: { width: 3840, height: 2116 },
@@ -32,35 +31,53 @@ export function RoomApp() {
   const stage = STAGE[orientation];
 
   useEffect(() => {
+    let timers: number[] = [];
+
     const measure = () => {
-      const next: Orientation = window.matchMedia("(orientation: portrait)").matches
-        ? "portrait"
-        : "landscape";
-      setOrientation(next);
-      const size = STAGE[next];
       const viewport = window.visualViewport;
-      const width = viewport?.width ?? window.innerWidth;
-      const height = viewport?.height ?? window.innerHeight;
+      const viewWidth = window.innerWidth;
+      const viewHeight = window.innerHeight;
+      const next = orientationForDisplay({
+        viewWidth,
+        viewHeight,
+        screenWidth: window.screen?.width ?? viewWidth,
+        screenHeight: window.screen?.height ?? viewHeight,
+      });
+      const size = STAGE[next];
+      setOrientation(next);
       setFrame({
-        width,
-        height,
+        width: viewWidth,
+        height: viewHeight,
         top: viewport?.offsetTop ?? 0,
         left: viewport?.offsetLeft ?? 0,
       });
-      setScale(Math.min(width / size.width, height / size.height));
+      setScale(Math.min(viewWidth / size.width, viewHeight / size.height));
     };
+
+    const onRotate = () => {
+      measure();
+      timers.forEach((timer) => window.clearTimeout(timer));
+      timers = [120, 400, 800].map((delay) => window.setTimeout(measure, delay));
+    };
+
     measure();
     const portraitQuery = window.matchMedia("(orientation: portrait)");
-    window.addEventListener("resize", measure);
-    window.addEventListener("orientationchange", measure);
-    portraitQuery.addEventListener("change", measure);
-    window.visualViewport?.addEventListener("resize", measure);
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.documentElement);
+    window.addEventListener("resize", onRotate);
+    window.addEventListener("orientationchange", onRotate);
+    portraitQuery.addEventListener("change", onRotate);
+    window.screen?.orientation?.addEventListener("change", onRotate);
+    window.visualViewport?.addEventListener("resize", onRotate);
     window.visualViewport?.addEventListener("scroll", measure);
     return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("orientationchange", measure);
-      portraitQuery.removeEventListener("change", measure);
-      window.visualViewport?.removeEventListener("resize", measure);
+      timers.forEach((timer) => window.clearTimeout(timer));
+      observer.disconnect();
+      window.removeEventListener("resize", onRotate);
+      window.removeEventListener("orientationchange", onRotate);
+      portraitQuery.removeEventListener("change", onRotate);
+      window.screen?.orientation?.removeEventListener("change", onRotate);
+      window.visualViewport?.removeEventListener("resize", onRotate);
       window.visualViewport?.removeEventListener("scroll", measure);
     };
   }, []);

@@ -31,7 +31,7 @@ npm run pages
 
 Publish the `out/` folder to the `gh-pages` branch. Paths are prefixed with `/dwb-redesign` so images, fonts, and scripts resolve on GitHub Pages.
 
-The registration PIN is **2580**. After four digits the board opens. The fingerprint control locks the display and returns to registration. The board follows the screen: landscape uses three columns, and turning the device to portrait uses two.
+The registration PIN is **2580**. After four digits the board opens. The fingerprint control locks the display and returns to registration. The board follows the TV. A wide screen uses three columns. Turning the set vertical, or opening the page in a taller window, switches to the two-column portrait board.
 
 ## On the board
 
@@ -40,4 +40,4 @@ The registration PIN is **2580**. After four digits the board opens. The fingerp
 - Draw opens the drawing box. The share icon sends the note by email. The X minimizes the box.
 - The QR code opens `/companion` so a phone on the same browser origin can draw onto the board.
 
-Rotate the window to preview both TV orientations. A wider screen uses the three-column landscape board. A taller screen uses the two-column portrait board.
+Rotate the TV, the phone, or the browser window. A wider screen uses the three-column landscape board. A vertical screen uses the two-column portrait board.
