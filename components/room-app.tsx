@@ -1,7 +1,7 @@
 "use client";
 
 import { asset } from "@/lib/assets";
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { DrawPanel } from "@/components/draw-panel";
 import { EmailDialog } from "@/components/email-dialog";
 import { PinScreen } from "@/components/pin-screen";
@@ -22,8 +22,6 @@ export function RoomApp() {
   const [orientation, setOrientation] = useState<Orientation>("landscape");
   const [scale, setScale] = useState(1);
   const [frame, setFrame] = useState({ width: 0, height: 0, top: 0, left: 0 });
-  const [contentHeight, setContentHeight] = useState<number>(STAGE.landscape.height);
-  const stageRef = useRef<HTMLDivElement>(null);
   const [typeIndex, setTypeIndex] = useState(1);
   const [dimIndex, setDimIndex] = useState(0);
   const [powerOff, setPowerOff] = useState(false);
@@ -49,7 +47,7 @@ export function RoomApp() {
         top: viewport?.offsetTop ?? 0,
         left: viewport?.offsetLeft ?? 0,
       });
-      setScale(width / size.width);
+      setScale(Math.min(width / size.width, height / size.height));
     };
     measure();
     const portraitQuery = window.matchMedia("(orientation: portrait)");
@@ -67,28 +65,14 @@ export function RoomApp() {
     };
   }, []);
 
-  useEffect(() => {
-    const node = stageRef.current;
-    if (!node) return;
-    const measure = () => {
-      const next = Math.ceil(node.offsetHeight);
-      setContentHeight((current) => (current === next ? current : next));
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [orientation, registered, typeIndex]);
-
   const style = useMemo(
     () =>
       ({
         "--stage-w": `${stage.width}px`,
         "--stage-h": `${stage.height}px`,
-        "--content-h": `${Math.max(contentHeight, stage.height)}px`,
         "--scale": String(scale),
       }) as CSSProperties,
-    [contentHeight, scale, stage.height, stage.width],
+    [scale, stage.height, stage.width],
   );
 
   function stampUpdate() {
@@ -111,7 +95,6 @@ export function RoomApp() {
       >
         <div className="stage-slot" style={style}>
           <div
-            ref={stageRef}
             className="stage"
             style={style}
             data-orientation={orientation}

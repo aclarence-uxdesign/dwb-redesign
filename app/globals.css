@@ -51,8 +51,8 @@ button {
   min-height: 100dvh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  overflow: auto;
+  align-items: center;
+  overflow: hidden;
   background:
     radial-gradient(circle at 50% 40%, #24143f 0%, #0b0714 46%, #05030c 100%);
 }
@@ -65,20 +65,21 @@ body {
 
 .stage-slot {
   width: calc(var(--stage-w) * var(--scale));
-  height: calc(var(--content-h) * var(--scale));
+  height: calc(var(--stage-h) * var(--scale));
   position: relative;
   flex: none;
+  overflow: hidden;
 }
 
 .stage {
   width: var(--stage-w);
-  min-height: var(--stage-h);
-  height: auto;
+  height: var(--stage-h);
   transform: scale(var(--scale));
   transform-origin: top left;
   position: absolute;
   left: 0;
   top: 0;
+  overflow: hidden;
   color: var(--ink);
   background: #0c071a;
 }
@@ -225,12 +226,13 @@ body {
 }
 
 .board {
-  min-height: var(--stage-h);
-  height: auto;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: 32px 64px 28px;
+  padding: 32px 64px 0;
   gap: 24px;
+  position: relative;
 }
 
 .board-header {
@@ -311,11 +313,17 @@ body {
 }
 
 .board-columns {
-  flex: none;
+  flex: 1;
+  min-height: 0;
   display: grid;
+  align-items: start;
   grid-template-rows: auto;
   gap: 32px;
   zoom: var(--type-scale);
+  overflow: auto;
+  padding-bottom: 196px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
 
 .stage[data-orientation="landscape"] .board-columns {
@@ -327,7 +335,7 @@ body {
 }
 
 .stage[data-orientation="portrait"] .board {
-  padding: 28px 40px 20px;
+  padding: 28px 40px 0;
 }
 
 .stage[data-orientation="portrait"] .board-header {
@@ -614,11 +622,29 @@ body {
 }
 
 .controls {
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  min-height: 120px;
+  min-height: 168px;
+  padding: 36px 64px 28px;
+  pointer-events: none;
+  background: linear-gradient(to top, #07040f 42%, rgba(7, 4, 15, 0));
+}
+
+.controls .control-cluster,
+.controls .updated {
+  pointer-events: auto;
+}
+
+.stage[data-orientation="portrait"] .controls {
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .control-cluster {
