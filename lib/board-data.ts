@@ -36,13 +36,13 @@ export const staff = [
     photo: asset("/media/staff-5.png"),
   },
   {
-    name: "Jean-Baptiste Beaumont-Dupré, RD",
-    role: "Clinical Dietitian",
+    name: "Amara J. Okonkwo, RRT",
+    role: "Respiratory Therapist",
     photo: asset("/media/staff-6.png"),
   },
   {
-    name: "Jean-Baptiste Beaumont-Dupré, RD",
-    role: "Clinical Dietitian",
+    name: "Helen Cho, PharmD",
+    role: "Clinical Pharmacist",
     photo: asset("/media/staff-7.png"),
   },
 ];
